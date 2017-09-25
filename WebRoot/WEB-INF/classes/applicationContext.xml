@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
@@ -12,21 +10,22 @@
 	http://www.springframework.org/schema/aop/spring-aop.xsd
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
-	
+
 	<!-- 配置连接池 -->
 	<!-- 引入外部属性文件 -->
-	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<context:property-placeholder location="classpath:jdbc.properties" />
 	<!-- 配置c3p0 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}"/>
-		<property name="jdbcUrl" value="${jdbc.url}"/>
-		<property name="user" value="${jdbc.user}"/>
-		<property name="password" value="${jdbc.password}"/>
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
 	</bean>
 	<!-- hibernate的一些相关信息 -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<!-- 注入连接池 -->
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="dataSource" />
 		<!-- 配置Hibernate的其他的属性 -->
 		<property name="hibernateProperties">
 			<props>
@@ -41,34 +40,63 @@
 		<property name="mappingResources">
 			<list>
 				<value>com/cretin/shop/user/vo/User.hbm.xml</value>
+				<value>com/cretin/shop/category/vo/Category.hbm.xml</value>
+				<value>com/cretin/shop/product/vo/Product.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- 事务管理: -->
 	<!-- 事务管理器 -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"/>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<!-- 开启注解事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-	<!-- 用户模块的Action   ===========================-->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 用户模块的Action =========================== -->
 	<!-- 首页访问的action -->
-	<bean id="indexAction" class="com.cretin.shop.index.action.IndexAction" scope="prototype">
-		
+	<bean id="indexAction" class="com.cretin.shop.index.action.IndexAction"
+		scope="prototype">
+		<property name="categoryService" ref="categoryService"></property>
+		<property name="productService" ref="productService"></property>
+	</bean>
+	<!-- 验证码的action -->
+	<bean id="checkImgAction" class="com.cretin.shop.user.action.CheckImgAction"
+		scope="prototype">
 	</bean>
 	<!-- 用户模块的Action -->
-	<bean id="userAction" class="com.cretin.shop.user.action.UserAction" scope="prototype">
+	<bean id="userAction" class="com.cretin.shop.user.action.UserAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	<!-- Service的配置  ===========================-->
+
+	<!-- 商品模块的Action -->
+	<bean id="productAction" class="com.cretin.shop.product.action.ProductAction"
+		scope="prototype">
+		<property name="productService" ref="productService"></property>
+	</bean>
+
+	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="com.cretin.shop.user.service.UserService">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
-	<!-- Dao的配置  ===========================-->
+	<bean id="categoryService" class="com.cretin.shop.category.service.CategoryService">
+		<property name="categoryDao" ref="categoryDao"></property>
+	</bean>
+	<bean id="productService" class="com.cretin.shop.product.service.ProductService">
+		<property name="productDao" ref="productDao"></property>
+	</bean>
+	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="com.cretin.shop.user.dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="categoryDao" class="com.cretin.shop.category.dao.CategoryDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="productDao" class="com.cretin.shop.product.dao.ProductDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 </beans>
