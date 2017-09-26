@@ -9,5 +9,10 @@
 			<generator class="native" />
 		</id>
 		<property name="cname" />
+		<!-- 配置二级分类的集合 -->
+		<set order-by="csid" name="categorySeconds" lazy="false">
+			<key column="cid"></key>
+			<one-to-many class="com.cretin.shop.categorysecond.vo.CategorySecond" />
+		</set>
 	</class>
 </hibernate-mapping>

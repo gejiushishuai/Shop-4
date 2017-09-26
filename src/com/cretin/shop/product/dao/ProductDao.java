@@ -1,13 +1,18 @@
 package com.cretin.shop.product.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.cretin.shop.product.vo.Product;
+import com.cretin.shop.utils.PageHibernateCallback;
 
 /**
  * 商品的持久层代码
@@ -53,7 +58,80 @@ public class ProductDao extends HibernateDaoSupport {
 	 * @param pid
 	 * @return
 	 */
-	public Product findByPid(String pid) {
+	public Product findByPid(Integer pid) {
 		return getHibernateTemplate().get(Product.class, pid);
+	}
+
+	/**
+	 * 根据一级分类的id查询商品的数量
+	 * 
+	 * @param cid
+	 * @return
+	 */
+	public int getAllCountByCid(Integer cid) {
+		String hql = "select count(*) from Product p where p.categorySecond.category.cid = ?";
+		List<Long> list = getHibernateTemplate().find(hql, cid);
+		if (list != null && list.size() > 0) {
+			return list.get(0).intValue();
+		}
+		return 0;
+	}
+
+	/**
+	 * 根据分类的id查询商品的集合
+	 * 
+	 * @param cid
+	 * @param begin
+	 * @param limit
+	 * @return
+	 */
+	public List<Product> getProductsByPageCid(Integer cid, int begin, int limit) {
+		// select p.* from category c,categorysecond cs,product p where c.cid =
+		// cs.cid and cs.csid = p.csid and c.cid = 1;
+		String hql = "select p from Product p join p.categorySecond cs join cs.category c where c.cid = ?";
+		List<Product> list = getHibernateTemplate().execute(
+				new PageHibernateCallback<Product>(hql, new Object[] { cid },
+						begin, limit));
+		if (list != null && list.size() > 0) {
+			return list;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据二级分类的id查询商品的数量
+	 * 
+	 * @param cid
+	 * @return
+	 */
+	public int getAllCountByCsid(Integer csid) {
+		String hql = "select count(*) from Product p where p.categorySecond.csid = ?";
+		List<Long> list = getHibernateTemplate().find(hql, csid);
+		if (list != null && list.size() > 0) {
+			return list.get(0).intValue();
+		}
+		return 0;
+	}
+
+	/**
+	 * 根据二级分类的id查询商品的集合
+	 * 
+	 * @param cid
+	 * @param begin
+	 * @param limit
+	 * @return
+	 */
+	public List<Product> getProductsByPageCsid(Integer csid, int begin,
+			int limit) {
+		// select p.* from category c,categorysecond cs,product p where c.cid =
+		// cs.cid and cs.csid = p.csid and c.cid = 1;
+		String hql = "select p from Product p join p.categorySecond cs where cs.csid = ?";
+		List<Product> list = getHibernateTemplate().execute(
+				new PageHibernateCallback<Product>(hql, new Object[] { csid },
+						begin, limit));
+		if (list != null && list.size() > 0) {
+			return list;
+		}
+		return null;
 	}
 }
