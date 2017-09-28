@@ -134,4 +134,29 @@ public class ProductDao extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	/**
+	 * 获取所有商品的数量
+	 * 
+	 * @return
+	 */
+	public int getAllCount() {
+		String hql = "select count(*) from Product";
+		List<Long> list = getHibernateTemplate().find(hql);
+		if (list != null && list.size() > 0) {
+			return list.get(0).intValue();
+		}
+		return 0;
+	}
+
+	public List<Product> getProductsByPage(int begin, int limit) {
+		String hql = "from Product p order by p.pdate desc";
+		List<Product> list = getHibernateTemplate().execute(
+				new PageHibernateCallback<Product>(hql, null,
+						begin, limit));
+		if (list != null && list.size() > 0) {
+			return list;
+		}
+		return null;
+	}
 }

@@ -113,4 +113,34 @@ public class ProductService {
 		System.out.println(pageBean.toString());
 		return pageBean;
 	}
+
+	/**
+	 * 查询所有的商品
+	 * @param page
+	 * @return
+	 */
+	public PageBean<Product> findAllByPage(Integer page) {
+		PageBean<Product> pageBean = new PageBean<Product>();
+		// 设置当前页数
+		pageBean.setPage(page);
+		// 设置每一页的记录数
+		int limit = 10;
+		pageBean.setLimit(limit);
+		// 设置总记录数
+		int totalCount = 0;
+		totalCount = productDao.getAllCount();
+		pageBean.setTotalCount(totalCount);
+		// 设置总页面数
+		int totalPage = 0;
+		totalPage = totalCount % limit == 0 ? (totalCount / limit) : (totalCount
+				/ limit + 1);
+		pageBean.setTotalPage(totalPage);
+		// 每页显示的数据集合
+		int begin = (page - 1) * limit;
+		List<Product> pList = productDao
+				.getProductsByPage(begin, limit);
+		pageBean.setList(pList);
+		System.out.println(pageBean.toString());
+		return pageBean;
+	}
 }

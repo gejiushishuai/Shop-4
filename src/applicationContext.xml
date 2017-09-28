@@ -44,6 +44,8 @@
 				<value>com/cretin/shop/product/vo/Product.hbm.xml</value>
 				<value>com/cretin/shop/categorysecond/vo/CategorySecond.hbm.xml
 				</value>
+				<value>com/cretin/shop/adminuser/vo/AdminUser.hbm.xml
+				</value>
 				<value>com/cretin/shop/order/vo/Order.hbm.xml
 				</value>
 				<value>com/cretin/shop/order/vo/OrderItem.hbm.xml
@@ -95,6 +97,30 @@
 		scope="prototype">
 		<property name="orderService" ref="orderService"></property>
 	</bean>
+	<!-- 后台登录模块的Action -->
+	<bean id="adminUserAction" class="com.cretin.shop.adminuser.action.AdminUserAction"
+		scope="prototype">
+		<property name="adminUserService" ref="adminUserService"></property>
+	</bean>
+	<!-- 后台一级分类管理模块的Action -->
+	<bean id="adminCategoryAction"
+		class="com.cretin.shop.category.adminaction.AdminCategoryAction"
+		scope="prototype">
+		<property name="categoryService" ref="categoryService"></property>
+	</bean>
+	<!-- 后台二级分类管理模块的Action -->
+	<bean id="adminCategorySecondAction"
+		class="com.cretin.shop.categorysecond.adminaction.AdminCategorySecondAction"
+		scope="prototype">
+		<property name="categorySecondService" ref="categorySecondService"></property>
+		<property name="categoryService" ref="categoryService"></property>
+	</bean>
+	<!-- 后台商品管理模块的Action -->
+	<bean id="adminProductAction"
+		class="com.cretin.shop.product.adminaction.AdminProductAction"
+		scope="prototype">
+		<property name="productService" ref="productService"></property>
+	</bean>
 
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="com.cretin.shop.user.service.UserService">
@@ -109,6 +135,12 @@
 	<bean id="orderService" class="com.cretin.shop.order.service.OrderService">
 		<property name="orderDao" ref="orderDao"></property>
 	</bean>
+	<bean id="adminUserService" class="com.cretin.shop.adminuser.service.AdminUserService">
+		<property name="adminUserDao" ref="adminUserDao"></property>
+	</bean>
+	<bean id="categorySecondService" class="com.cretin.shop.categorysecond.service.CategorySecondService">
+		<property name="categorySecondDao" ref="categorySecondDao"></property>
+	</bean>
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="com.cretin.shop.user.dao.UserDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
@@ -120,6 +152,12 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="orderDao" class="com.cretin.shop.order.dao.OrderDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="adminUserDao" class="com.cretin.shop.adminuser.dao.AdminUserDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="categorySecondDao" class="com.cretin.shop.categorysecond.dao.CategorySecondDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 </beans>

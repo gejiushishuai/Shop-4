@@ -64,7 +64,7 @@ function checkForm() {
 					</div>
 					<form id="loginForm" method="post"
 						action="${pageContext.request.contextPath}/user_login.action"
-						novalidate="novalidate">
+						novalidate="novalidate" onsubmit="return checkForm();">
 						<table>
 							<tbody>
 								<tr>

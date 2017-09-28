@@ -29,4 +29,39 @@ public class CategoryService {
 	public List<Category> getAllCategory() {
 		return categoryDao.getAllCategory();
 	}
+
+	/**
+	 * 业务层保存一级分类的方法
+	 * @param category
+	 */
+	public void save(Category category) {
+		// TODO Auto-generated method stub
+		categoryDao.save(category);
+	}
+
+	/**
+	 * 根据cid查询一级分类
+	 * @param cid
+	 * @return
+	 */
+	public Category findByCid(Integer cid) {
+		return categoryDao.findByCid(cid);
+	}
+
+	/**
+	 * 业务层删除一级分类
+	 * @param category
+	 */
+	public void delete(Category category) {
+		categoryDao.delete(category);
+	}
+
+	/**
+	 * 业务层修改一级分类
+	 * @param category
+	 */
+	public void update(Category category) {
+		categoryDao.update(category);
+	}
+
 }
