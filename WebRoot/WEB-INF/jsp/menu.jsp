@@ -15,7 +15,7 @@
 					<s:property value="#session.existUser.username" /> |
 				</li>
 				<li id="headerLogin" class="headerLogin" style="display: list-item;">
-					<a href="#">我的订单</a> |
+					<a href="${pageContext.request.contextPath}/order_findOrdersByUid.action?page=1">我的订单</a> |
 				</li>
 				<li id="headerRegister" class="headerRegister"
 					style="display: list-item;"><a
@@ -28,7 +28,7 @@
 		</ul>
 	</div>
 	<div class="cart">
-		<a href="./购物车.htm">购物车</a>
+		<a href="${ pageContext.request.contextPath }/cart_openCart.action">购物车</a>
 	</div>
 	<div class="phone">
 		客服热线: <strong>96008/53277764</strong>
@@ -39,7 +39,9 @@
 		<li><a href="${ pageContext.request.contextPath }/index.action">首页</a>
 			|</li>
 		<s:iterator value="#session.cList" var="c">
-			<li><a href="${pageContext.request.contextPath }/product_findByCid.action?cid=<s:property value="#c.cid" />&page=1"><s:property value="#c.cname" /></a> |</li>
+			<li><a
+				href="${pageContext.request.contextPath }/product_findByCid.action?cid=<s:property value="#c.cid" />&page=1"><s:property
+						value="#c.cname" /></a> |</li>
 		</s:iterator>
 	</ul>
 </div>

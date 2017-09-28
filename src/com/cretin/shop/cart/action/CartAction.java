@@ -72,4 +72,21 @@ public class CartAction extends ActionSupport {
 		}
 		return cart;
 	}
+
+	/**
+	 * 打开购物车
+	 */
+	public String openCart() {
+		return "openCart";
+	}
+
+	/**
+	 * 从购物车中移除
+	 * 
+	 * @return
+	 */
+	public String removeCart() {
+		getCart().removeCart(pid);
+		return "removeCart";
+	}
 }

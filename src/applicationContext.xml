@@ -44,6 +44,10 @@
 				<value>com/cretin/shop/product/vo/Product.hbm.xml</value>
 				<value>com/cretin/shop/categorysecond/vo/CategorySecond.hbm.xml
 				</value>
+				<value>com/cretin/shop/order/vo/Order.hbm.xml
+				</value>
+				<value>com/cretin/shop/order/vo/OrderItem.hbm.xml
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -86,6 +90,11 @@
 		scope="prototype">
 		<property name="productService" ref="productService"></property>
 	</bean>
+	<!-- 订单模块的Action -->
+	<bean id="orderAction" class="com.cretin.shop.order.action.OrderAction"
+		scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
 
 	<!-- Service的配置 =========================== -->
 	<bean id="userService" class="com.cretin.shop.user.service.UserService">
@@ -97,6 +106,9 @@
 	<bean id="productService" class="com.cretin.shop.product.service.ProductService">
 		<property name="productDao" ref="productDao"></property>
 	</bean>
+	<bean id="orderService" class="com.cretin.shop.order.service.OrderService">
+		<property name="orderDao" ref="orderDao"></property>
+	</bean>
 	<!-- Dao的配置 =========================== -->
 	<bean id="userDao" class="com.cretin.shop.user.dao.UserDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
@@ -105,6 +117,9 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="productDao" class="com.cretin.shop.product.dao.ProductDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="orderDao" class="com.cretin.shop.order.dao.OrderDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 </beans>

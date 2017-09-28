@@ -10,6 +10,7 @@
 	<package name="shop" extends="struts-default" namespace="/">
 		<global-results>
 			<result name="msg">/WEB-INF/jsp/msg.jsp</result>
+			<result name="login">/WEB-INF/jsp/login.jsp</result>
 		</global-results>
 		<!-- 配置首页访问的Action -->
 		<action name="index" class="indexAction">
@@ -20,7 +21,6 @@
 			<result name="registPage">/WEB-INF/jsp/regist.jsp</result>
 			<result name="input">/WEB-INF/jsp/regist.jsp</result>
 			<result name="loginPage">/WEB-INF/jsp/login.jsp</result>
-			<result name="login">/WEB-INF/jsp/login.jsp</result>
 			<result name="quit" type="redirectAction">index</result>
 			<result name="loginSuccess" type="redirectAction">index</result>
 			<result name="checkcodeFail">/WEB-INF/jsp/regist.jsp</result>
@@ -36,11 +36,19 @@
 			<result name="findByCid">/WEB-INF/jsp/productList.jsp</result>
 			<result name="findByCsid">/WEB-INF/jsp/productList.jsp</result>
 		</action>
-		
+
 		<!-- 购物车模块的Action -->
 		<action name="cart_*" class="cartAction" method="{1}">
 			<result name="addCart">/WEB-INF/jsp/cart.jsp</result>
 			<result name="clearCart">/WEB-INF/jsp/cart.jsp</result>
+			<result name="openCart">/WEB-INF/jsp/cart.jsp</result>
+			<result name="removeCart">/WEB-INF/jsp/cart.jsp</result>
+		</action>
+		<!-- 订单模块的Action -->
+		<action name="order_*" class="orderAction" method="{1}">
+			<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
+			<result name="findByOid">/WEB-INF/jsp/order.jsp</result>
+			<result name="findOrdersByUid">/WEB-INF/jsp/orderList.jsp</result>
 		</action>
 	</package>
 </struts>

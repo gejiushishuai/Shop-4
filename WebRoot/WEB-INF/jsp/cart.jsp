@@ -5,14 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>购物车</title>
+	<title>购物车</title>
 
-<link href="${pageContext.request.contextPath}/css/common.css"
-	rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/css/cart.css"
-	rel="stylesheet" type="text/css">
-
-
+	<link href="${pageContext.request.contextPath}/css/common.css"
+		rel="stylesheet" type="text/css">
+		<link href="${pageContext.request.contextPath}/css/cart.css"
+			rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="container header">
@@ -20,8 +18,7 @@
 			<div class="logo">
 				<a href="http://localhost:8080/mango/"> <img
 					src="${pageContext.request.contextPath}/image/r___________renleipic_01/logo.gif"
-					alt="传智播客">
-				</a>
+					alt="传智播客"></a>
 			</div>
 		</div>
 		<div class="span9">
@@ -58,7 +55,9 @@
 										value="#item.count" /></td>
 								<td width="140"><span class="subtotal">￥<s:property
 											value="#item.subtotal" /></span></td>
-								<td><a href="javascript:;" class="delete">删除</a></td>
+								<td><a
+									href="${pageContext.request.contextPath}/cart_removeCart.action?pid=<s:property value="#item.product.pid"/>"
+									class="delete">删除</a></td>
 							</tr>
 						</s:iterator>
 					</tbody>
@@ -74,14 +73,18 @@
 				</div>
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/cart_clearCart.action"
-						id="clear" class="clear">清空购物车</a> <a href="./会员登录.htm"
+						id="clear" class="clear">清空购物车</a> <a href="${pageContext.request.contextPath }/order_save.action"
 						id="submit" class="submit">提交订单</a>
 				</div>
 			</div>
 		</s:if>
 		<s:else>
 			<div class="span24">
-				<span><h2>亲！您还没有购物，请先去购物</h2></span>
+				<span><h2>
+						亲！您还没有购物，请先去<a
+							href="${ pageContext.request.contextPath }/index.action"><font
+							color="blue">购物</font></a>
+					</h2></span>
 			</div>
 		</s:else>
 	</div>
