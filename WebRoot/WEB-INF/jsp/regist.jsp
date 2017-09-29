@@ -283,7 +283,7 @@
 							<dl>
 								<dt>已经拥有账号了？</dt>
 								<dd>
-									立即登录即可体验在线购物！ <a href="./会员登录.htm">立即登录</a>
+									立即登录即可体验在线购物！ <a href="${pageContext.request.contextPath}/user_loginPage.action">立即登录</a>
 								</dd>
 							</dl>
 						</div>

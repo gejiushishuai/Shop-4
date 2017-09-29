@@ -1,6 +1,7 @@
 package com.cretin.shop.order.action;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -70,7 +71,7 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 	public String save() {
 		// 保存数据到数据库
 		// 订单数据补全
-		order.setOrdertime(new Date(System.currentTimeMillis()));
+		order.setOrdertime(new Date());
 		order.setState(1);// 1 未付款 2 已付款 没有发货 3 已发货 没有确认收货 4 交易完成;
 		// 总计的数据
 		Cart cart = (Cart) ServletActionContext.getRequest().getSession()

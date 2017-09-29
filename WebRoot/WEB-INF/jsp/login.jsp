@@ -82,13 +82,6 @@ function checkForm() {
 								</tr>
 								<tr>
 									<th>&nbsp;</th>
-									<td><label> <input type="checkbox"
-											id="isRememberUsername" name="isRememberUsername"
-											value="true">记住用户名 </label> <label> &nbsp;&nbsp;<a>找回密码</a>
-									</label></td>
-								</tr>
-								<tr>
-									<th>&nbsp;</th>
 									<td><input type="submit" class="submit" value="登 录"></td>
 								</tr>
 								<tr class="register">
@@ -97,7 +90,7 @@ function checkForm() {
 										<dl>
 											<dt>还没有注册账号？</dt>
 											<dd>
-												立即注册即可体验在线购物！ <a href="./会员注册.htm">立即注册</a>
+												立即注册即可体验在线购物！ <a href="${pageContext.request.contextPath}/user_registPage.action">立即注册</a>
 											</dd>
 										</dl>
 									</td>

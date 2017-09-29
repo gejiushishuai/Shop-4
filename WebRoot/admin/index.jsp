@@ -43,9 +43,6 @@ body {
 		target="_parent" name='theForm' onsubmit="return checkForm();">
 		<table cellspacing="0" cellpadding="0" style="margin-top: 100px"
 			align="center">
-			<tr>
-				<td><img src="../images/login.jpg" width="128" height="128"
-					border="0" /></td>
 				<td style="padding-left: 50px">
 					<table>
 						<tr>
