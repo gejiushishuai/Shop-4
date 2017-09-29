@@ -203,4 +203,17 @@ public class OrderAction extends ActionSupport implements ModelDriven<Order> {
 				+ Integer.parseInt(r6_Order.split(":")[0]) + "付款金额：" + r3_Amt);
 		return "msg";
 	}
+	
+	/**
+	 * 修改订单的状态
+	 * @return
+	 */
+	public String updateState(){
+		//根据id查询订单
+		Order currOrder = orderService.findByOid(order.getOid());
+		//修改状态
+		currOrder.setState(4);
+		orderService.update(currOrder);
+		return "updateStateSuccess";
+	}
 }

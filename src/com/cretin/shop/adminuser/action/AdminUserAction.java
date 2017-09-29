@@ -47,4 +47,11 @@ public class AdminUserAction extends ActionSupport implements
 			return "loginSuccess";
 		}
 	}
+
+	/**
+	 * 后台登录的方法
+	 */
+	public String loginSuccess() {
+		return "loginSuccess";
+	}
 }

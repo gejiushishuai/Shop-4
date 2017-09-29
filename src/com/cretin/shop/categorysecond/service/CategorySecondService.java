@@ -84,4 +84,12 @@ public class CategorySecondService {
 	public void update(CategorySecond categorySecond) {
 		categorySecondDao.update(categorySecond);
 	}
+
+	/**
+	 * 业务层查询所有的二级分类
+	 * @return
+	 */
+	public List<CategorySecond> getAllCategorySecond() {
+		return categorySecondDao.getAllCategorySecond();
+	}
 }

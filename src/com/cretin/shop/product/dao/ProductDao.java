@@ -152,11 +152,36 @@ public class ProductDao extends HibernateDaoSupport {
 	public List<Product> getProductsByPage(int begin, int limit) {
 		String hql = "from Product p order by p.pdate desc";
 		List<Product> list = getHibernateTemplate().execute(
-				new PageHibernateCallback<Product>(hql, null,
-						begin, limit));
+				new PageHibernateCallback<Product>(hql, null, begin, limit));
 		if (list != null && list.size() > 0) {
 			return list;
 		}
 		return null;
+	}
+
+	/**
+	 * Dao层保存商品的方法
+	 * 
+	 * @param product
+	 */
+	public void save(Product product) {
+		getHibernateTemplate().save(product);
+	}
+
+	/**
+	 * Dao层删除商品
+	 * 
+	 * @param product
+	 */
+	public void delete(Product product) {
+		getHibernateTemplate().delete(product);
+	}
+	/**
+	 * Dao层修改商品
+	 * 
+	 * @param product
+	 */
+	public void update(Product product) {
+		getHibernateTemplate().update(product);
 	}
 }

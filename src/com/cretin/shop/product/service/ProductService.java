@@ -143,4 +143,28 @@ public class ProductService {
 		System.out.println(pageBean.toString());
 		return pageBean;
 	}
+
+	/**
+	 * 业务层保存商品
+	 * @param product
+	 */ 
+	public void save(Product product) {
+		productDao.save(product);
+	}
+
+	/**
+	 * 业务层删除商品
+	 * @param product
+	 */
+	public void delete(Product product) {
+		productDao.delete(product);
+	}
+
+	/**
+	 * 业务层修改商品
+	 * @param product
+	 */
+	public void update(Product product) {
+		productDao.update(product);
+	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.cretin.shop.category.vo.Category;
 import com.cretin.shop.categorysecond.vo.CategorySecond;
 import com.cretin.shop.product.vo.Product;
 import com.cretin.shop.utils.PageHibernateCallback;
@@ -79,9 +80,20 @@ public class CategorySecondDao extends HibernateDaoSupport {
 
 	/**
 	 * dao层修改
+	 * 
 	 * @param categorySecond
 	 */
 	public void update(CategorySecond categorySecond) {
 		getHibernateTemplate().update(categorySecond);
+	}
+
+	/**
+	 * dao层获取所有的二级分类
+	 * 
+	 * @return
+	 */
+	public List<CategorySecond> getAllCategorySecond() {
+		String hql = "from CategorySecond";
+		return (List<CategorySecond>) getHibernateTemplate().find(hql);
 	}
 }

@@ -116,10 +116,15 @@
 		<property name="categoryService" ref="categoryService"></property>
 	</bean>
 	<!-- 后台商品管理模块的Action -->
-	<bean id="adminProductAction"
-		class="com.cretin.shop.product.adminaction.AdminProductAction"
+	<bean id="adminProductAction" class="com.cretin.shop.product.adminaction.AdminProductAction"
 		scope="prototype">
 		<property name="productService" ref="productService"></property>
+		<property name="categorySecondService" ref="categorySecondService"></property>
+	</bean>
+	<!-- 后台订单管理模块的Action -->
+	<bean id="adminOrderAction" class="com.cretin.shop.order.adminaction.AdminOrderAction"
+		scope="prototype">
+		<property name="orderService" ref="orderService"></property>
 	</bean>
 
 	<!-- Service的配置 =========================== -->
@@ -138,7 +143,8 @@
 	<bean id="adminUserService" class="com.cretin.shop.adminuser.service.AdminUserService">
 		<property name="adminUserDao" ref="adminUserDao"></property>
 	</bean>
-	<bean id="categorySecondService" class="com.cretin.shop.categorysecond.service.CategorySecondService">
+	<bean id="categorySecondService"
+		class="com.cretin.shop.categorysecond.service.CategorySecondService">
 		<property name="categorySecondDao" ref="categorySecondDao"></property>
 	</bean>
 	<!-- Dao的配置 =========================== -->

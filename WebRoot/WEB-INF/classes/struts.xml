@@ -8,9 +8,16 @@
 	<constant name="struts.devMode" value="false" />
 
 	<package name="shop" extends="struts-default" namespace="/">
+		<!-- 拦截器 -->
+		<interceptors>
+			<interceptor name="privilegeInterceptor"
+				class="com.cretin.shop.interceptor.PrivilegeInterceptor"></interceptor>
+		</interceptors>
 		<global-results>
 			<result name="msg">/WEB-INF/jsp/msg.jsp</result>
 			<result name="login">/WEB-INF/jsp/login.jsp</result>
+			<result name="adminmsg">/admin/msg.jsp</result>
+			<result name="loginFail">/admin/msgUnlogin.jsp</result>
 		</global-results>
 		<!-- 配置首页访问的Action -->
 		<action name="index" class="indexAction">
@@ -49,11 +56,17 @@
 			<result name="saveSuccess">/WEB-INF/jsp/order.jsp</result>
 			<result name="findByOid">/WEB-INF/jsp/order.jsp</result>
 			<result name="findOrdersByUid">/WEB-INF/jsp/orderList.jsp</result>
+			<result name="updateStateSuccess" type="redirectAction">order_findOrdersByUid.action?page=1
+			</result>
 		</action>
 		<!-- 后台登录模块的Action -->
 		<action name="adminUser_*" class="adminUserAction" method="{1}">
 			<result name="loginSuccess" type="redirect">/admin/home.jsp</result>
 			<result name="loginFail">/admin/index.jsp</result>
+			<interceptor-ref name="privilegeInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 		</action>
 		<!-- 后台一级分类管理模块的Action -->
 		<action name="adminCategory_*" class="adminCategoryAction"
@@ -66,6 +79,9 @@
 			<result name="updateSuccess" type="redirectAction">adminCategory_findAll.action
 			</result>
 			<result name="editSuccess">/admin/category/edit.jsp</result>
+
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 
 		<!-- 后台二级分类管理模块的Action -->
@@ -73,15 +89,42 @@
 			method="{1}">
 			<result name="findAllByPage">/admin/categorysecond/list.jsp</result>
 			<result name="addPageSuccess">/admin/categorysecond/add.jsp</result>
-			<result name="saveSuccess" type="redirectAction">adminCategorySecond_findAllByPage.action?page=1</result>
-			<result name="deleteSuccess" type="redirectAction">adminCategorySecond_findAllByPage.action?page=1</result>
-			<result name="updateSuccess" type="redirectAction">adminCategorySecond_findAllByPage.action?page=1</result>
+			<result name="saveSuccess" type="redirectAction">adminCategorySecond_findAllByPage.action?page=1
+			</result>
+			<result name="deleteSuccess" type="redirectAction">adminCategorySecond_findAllByPage.action?page=1
+			</result>
+			<result name="updateSuccess" type="redirectAction">adminCategorySecond_findAllByPage.action?page=1
+			</result>
 			<result name="editSuccess">/admin/categorysecond/edit.jsp</result>
+
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 		<!-- 后台商品管理模块的Action -->
 		<action name="adminProduct_*" class="adminProductAction"
 			method="{1}">
 			<result name="findAllByPage">/admin/product/list.jsp</result>
+			<result name="addPageSuccess">/admin/product/add.jsp</result>
+			<result name="saveSuccess" type="redirectAction">adminProduct_findAllByPage.action?page=1
+			</result>
+			<result name="deleteSuccess" type="redirectAction">adminProduct_findAllByPage.action?page=1
+			</result>
+			<result name="editSuccess">/admin/product/edit.jsp</result>
+			<result name="updateSuccess" type="redirectAction">adminProduct_findAllByPage.action?page=1
+			</result>
+
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<!-- 后台订单管理模块的Action -->
+		<action name="adminOrder_*" class="adminOrderAction" method="{1}">
+			<result name="findAllByPage">/admin/order/list.jsp</result>
+			<result name="findOrderItem">/admin/order/orderItem.jsp</result>
+			<result name="updateState" type="redirectAction">adminOrder_findAllByPage.action?page=1
+			</result>
+			<result name="findByState">/admin/order/list.jsp</result>
+			<interceptor-ref name="privilegeInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
 		</action>
 	</package>
 </struts>

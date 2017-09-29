@@ -55,14 +55,14 @@
 								&nbsp; &nbsp; &nbsp; &nbsp; 订单状态： <s:if test="#order.state==1">
 									未付款 &nbsp;
 									 &nbsp;
-									<a href="${pageContext.request.contextPath }/order_findByOid?oid=<s:property value="#order.oid" />"> <font color="blue">去付款</font>
+									<a href="${pageContext.request.contextPath }/order_findByOid.action?oid=<s:property value="#order.oid" />"> <font color="blue">去付款</font>
 									</a>
 								</s:if> <s:if test="#order.state==2">
 									已付款
 								</s:if> <s:if test="#order.state==3">
 									已发货 &nbsp;
 									 &nbsp;
-									<a href="#"> <font color="blue">确认收货</font>
+									<a href="${pageContext.request.contextPath }/order_updateState.action?oid=<s:property value="#order.oid" />""> <font color="blue">确认收货</font>
 									</a>
 								</s:if> <s:if test="#order.state==4">
 									交易完成
@@ -102,7 +102,7 @@
 								</span>
 								<s:if test="pageBean.page!=1">
 									<a
-										href="${pageContext.request.contextPath}/order_findOrdersByUid.action?page=<s:property value="1"/>/>"
+										href="${pageContext.request.contextPath}/order_findOrdersByUid.action?page=<s:property value="1"/>"
 										class="firstPage">&nbsp;</a>
 									<a
 										href="${pageContext.request.contextPath}/order_findOrdersByUid.action?page=<s:property value="pageBean.page-1"/>"
